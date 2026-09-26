@@ -1,0 +1,2773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b0b0b" />
+  <meta name="description" content="Vista Fitness — an elevated fitness experience designed around performance, wellness and lifestyle." />
+  <title>VISTA FITNESS — Train Beyond Limits.</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #080808;
+      --surface: #101010;
+      --surface-2: #151515;
+      --text: #f5f3ee;
+      --muted: #a5a39d;
+      --line: rgba(255,255,255,.1);
+      --accent: #c6a66a;
+      --accent-soft: rgba(198,166,106,.12);
+      --radius: 22px;
+      --container: 1240px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "DM Sans", sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--container));
+      margin-inline: auto;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: "Manrope", sans-serif;
+      line-height: 1.02;
+      letter-spacing: -.045em;
+    }
+
+    h2 {
+      font-size: clamp(2.5rem, 6vw, 5.2rem);
+      max-width: 850px;
+    }
+
+    .section {
+      padding: 120px 0;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 50px;
+      align-items: end;
+      margin-bottom: 60px;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      max-width: 430px;
+    }
+
+    /* NAV */
+
+    .nav {
+      position: fixed;
+      z-index: 100;
+      width: 100%;
+      top: 0;
+      transition: .3s ease;
+    }
+
+    .nav.scrolled {
+      background: rgba(8,8,8,.82);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: "Manrope", sans-serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: .13em;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: .85rem;
+      color: #d8d6d0;
+    }
+
+    .nav-links a {
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -7px;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: .25s;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .nav-cta,
+    .btn {
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: 14px 22px;
+      font-weight: 700;
+      font-size: .82rem;
+      transition: .25s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--text);
+      color: #090909;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      border-color: rgba(255,255,255,.25);
+      color: var(--text);
+      background: rgba(255,255,255,.025);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      transform: translateY(-2px);
+    }
+
+    .nav-cta {
+      background: var(--accent);
+      color: #0a0a0a;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+    }
+
+    .menu-btn {
+      display: none;
+      background: none;
+      border: 0;
+      color: white;
+      font-size: 1.6rem;
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(5,5,5,.95) 0%, rgba(5,5,5,.68) 45%, rgba(5,5,5,.25) 100%),
+        linear-gradient(0deg, rgba(5,5,5,.9), transparent 45%),
+        url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=2200&q=90")
+        center/cover;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 80% 35%, rgba(198,166,106,.15), transparent 30%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding-top: 100px;
+      max-width: 900px;
+    }
+
+    .hero h1 {
+      font-size: clamp(4rem, 10vw, 9rem);
+      max-width: 950px;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 span {
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,.65);
+    }
+
+    .hero-copy {
+      max-width: 570px;
+      color: #d0cec8;
+      font-size: 1.08rem;
+      margin-bottom: 34px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .trust {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 48px;
+      color: #aaa8a2;
+      font-size: .75rem;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+    }
+
+    .trust-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    /* ABOUT */
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-image {
+      min-height: 620px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background:
+        linear-gradient(0deg, rgba(0,0,0,.35), transparent),
+        url("https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=1200&q=85")
+        center/cover;
+    }
+
+    .about-copy p {
+      color: var(--muted);
+      max-width: 570px;
+      margin: 25px 0;
+      font-size: 1.02rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      border-top: 1px solid var(--line);
+      margin-top: 42px;
+    }
+
+    .stat {
+      padding: 24px 15px 20px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .stat:nth-child(odd) {
+      border-right: 1px solid var(--line);
+    }
+
+    .stat:nth-child(even) {
+      padding-left: 25px;
+    }
+
+    .stat strong {
+      display: block;
+      font-family: "Manrope";
+      font-size: 2rem;
+      margin-bottom: 5px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: .8rem;
+    }
+
+    /* AMENITIES */
+
+    .amenities {
+      background: #0d0d0d;
+    }
+
+    .amenity-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 80px;
+    }
+
+    .amenity-intro {
+      position: sticky;
+      top: 120px;
+      align-self: start;
+    }
+
+    .amenity-intro p {
+      color: var(--muted);
+      max-width: 400px;
+      margin-top: 22px;
+    }
+
+    .amenity-group {
+      border-top: 1px solid var(--line);
+      padding: 25px 0 45px;
+    }
+
+    .amenity-group h3 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+      color: var(--accent);
+      margin-bottom: 25px;
+    }
+
+    .amenity-list {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 0;
+    }
+
+    .amenity-item {
+      padding: 13px 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      color: #d2d0ca;
+      font-size: .9rem;
+    }
+
+    /* PRICING */
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 16px;
+    }
+
+    .price-card {
+      position: relative;
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg,#121212,#0d0d0d);
+      border-radius: var(--radius);
+      padding: 34px;
+      transition: .3s;
+    }
+
+    .price-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(198,166,106,.5);
+    }
+
+    .price-card.featured {
+      border-color: var(--accent);
+      box-shadow: 0 20px 80px rgba(0,0,0,.3);
+    }
+
+    .popular {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: var(--accent);
+      color: #111;
+      padding: 6px 10px;
+      border-radius: 99px;
+      font-size: .65rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+
+    .price-card h3 {
+      font-size: 1.35rem;
+      letter-spacing: -.02em;
+      margin-bottom: 25px;
+    }
+
+    .price {
+      font-family: "Manrope";
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .price small {
+      color: var(--muted);
+      font-size: .8rem;
+      font-weight: 400;
+    }
+
+    .duration {
+      color: var(--muted);
+      font-size: .78rem;
+      margin-bottom: 30px;
+    }
+
+    .features {
+      list-style: none;
+      margin-bottom: 32px;
+      min-height: 220px;
+    }
+
+    .features li {
+      padding: 9px 0;
+      color: #c7c5bf;
+      font-size: .84rem;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    .features li::before {
+      content: "✓";
+      color: var(--accent);
+      margin-right: 9px;
+    }
+
+    .price-card .btn {
+      width: 100%;
+    }
+
+    .duration-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+    }
+
+    .duration-tab {
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 8px 13px;
+      font-size: .72rem;
+    }
+
+    .duration-tab.active {
+      color: #111;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* SPLIT */
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 650px;
+    }
+
+    .split-image {
+      background:
+        linear-gradient(90deg, transparent, rgba(0,0,0,.3)),
+        url("https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1400&q=85")
+        center/cover;
+      min-height: 600px;
+    }
+
+    .split-content {
+      background: #121212;
+      display: flex;
+      align-items: center;
+      padding: 80px clamp(30px,7vw,100px);
+    }
+
+    .split-content p {
+      color: var(--muted);
+      margin: 25px 0;
+      max-width: 500px;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 12px;
+      margin: 30px 0;
+    }
+
+    .mini-card {
+      border: 1px solid var(--line);
+      padding: 16px;
+      border-radius: 14px;
+      font-size: .8rem;
+      color: #d6d4ce;
+    }
+
+    .mini-card strong {
+      display: block;
+      color: white;
+      font-size: 1.1rem;
+      margin-bottom: 3px;
+    }
+
+    /* NUTRITION */
+
+    .nutrition {
+      background: #f0eee8;
+      color: #101010;
+    }
+
+    .nutrition .eyebrow {
+      color: #80683d;
+    }
+
+    .nutrition .section-header p {
+      color: #696761;
+    }
+
+    .nutrition-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .nutrition h2 {
+      max-width: 700px;
+    }
+
+    .nutrition-copy {
+      color: #65635e;
+      margin: 25px 0;
+      max-width: 650px;
+    }
+
+    .nutrition-services {
+      display: grid;
+      gap: 10px;
+    }
+
+    .nutrition-service {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(0,0,0,.14);
+      padding: 20px 0;
+      gap: 20px;
+    }
+
+    .nutrition-service strong {
+      font-family: "Manrope";
+    }
+
+    .nutrition-service span {
+      font-weight: 800;
+    }
+
+    .disclaimer {
+      font-size: .72rem;
+      color: #77746d;
+      margin-top: 25px;
+    }
+
+    /* ADDONS */
+
+    .addons-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+
+    .addon {
+      background: var(--bg);
+      padding: 28px;
+      min-height: 145px;
+    }
+
+    .addon h3 {
+      font-size: 1rem;
+      letter-spacing: -.02em;
+      margin-bottom: 20px;
+    }
+
+    .addon strong {
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+
+    /* CLASSES */
+
+    .classes {
+      background: #0d0d0d;
+    }
+
+    .class-list {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 12px;
+    }
+
+    .class-card {
+      min-height: 300px;
+      border: 1px solid var(--line);
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+      background:
+        linear-gradient(0deg,rgba(0,0,0,.9),rgba(0,0,0,.05)),
+        url("https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=700&q=80")
+        center/cover;
+      transition: .3s;
+    }
+
+    .class-card:nth-child(2) {
+      background-image:
+        linear-gradient(0deg,rgba(0,0,0,.9),rgba(0,0,0,.05)),
+        url("https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=700&q=80");
+    }
+
+    .class-card:nth-child(3) {
+      background-image:
+        linear-gradient(0deg,rgba(0,0,0,.9),rgba(0,0,0,.05)),
+        url("https://images.unsplash.com/photo-1517963879433-6ad2b056d712?auto=format&fit=crop&w=700&q=80");
+    }
+
+    .class-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .class-meta {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(0,0,0,.35);
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: .62rem;
+      text-transform: uppercase;
+    }
+
+    .class-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 7px;
+    }
+
+    .class-card p {
+      color: #bcbab5;
+      font-size: .75rem;
+      margin-bottom: 18px;
+    }
+
+    .class-card .btn {
+      padding: 9px 14px;
+      font-size: .7rem;
+      align-self: start;
+    }
+
+    /* TRAINERS */
+
+    .trainer-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 15px;
+    }
+
+    .trainer-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      background: #101010;
+    }
+
+    .trainer-image {
+      height: 360px;
+      object-fit: cover;
+      filter: grayscale(100%);
+      transition: .4s;
+    }
+
+    .trainer-card:hover .trainer-image {
+      filter: grayscale(0%);
+      transform: scale(1.03);
+    }
+
+    .trainer-info {
+      padding: 22px;
+    }
+
+    .trainer-info h3 {
+      font-size: 1.15rem;
+      margin-bottom: 4px;
+    }
+
+    .trainer-role {
+      color: var(--accent);
+      font-size: .75rem;
+      margin-bottom: 15px;
+    }
+
+    .trainer-info p {
+      color: var(--muted);
+      font-size: .78rem;
+    }
+
+    /* CTA */
+
+    .cta {
+      padding: 110px 0;
+      background:
+        linear-gradient(90deg,rgba(0,0,0,.82),rgba(0,0,0,.35)),
+        url("https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=2200&q=85")
+        center/cover fixed;
+      text-align: center;
+    }
+
+    .cta h2 {
+      margin-inline: auto;
+      max-width: 900px;
+    }
+
+    .cta p {
+      color: #c0beb8;
+      max-width: 570px;
+      margin: 25px auto 30px;
+    }
+
+    /* COMPARISON */
+
+    .comparison-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .comparison {
+      width: 100%;
+      min-width: 750px;
+      border-collapse: collapse;
+    }
+
+    .comparison th,
+    .comparison td {
+      padding: 18px 20px;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+      font-size: .8rem;
+    }
+
+    .comparison th {
+      color: var(--accent);
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      background: #111;
+    }
+
+    .comparison td:not(:first-child) {
+      text-align: center;
+    }
+
+    .yes {
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+
+    /* FAQ */
+
+    .faq {
+      background: #0d0d0d;
+    }
+
+    .faq-list {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .faq-item {
+      border-top: 1px solid var(--line);
+    }
+
+    .faq-question {
+      width: 100%;
+      background: transparent;
+      border: 0;
+      color: white;
+      padding: 25px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: left;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .faq-icon {
+      color: var(--accent);
+      font-size: 1.4rem;
+      transition: .25s;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      color: var(--muted);
+      font-size: .85rem;
+      transition: max-height .3s ease;
+    }
+
+    .faq-answer p {
+      padding: 0 0 25px;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    /* CONTACT */
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 70px;
+    }
+
+    .contact-info > p {
+      color: var(--muted);
+      margin: 20px 0 35px;
+      max-width: 450px;
+    }
+
+    .contact-detail {
+      margin: 20px 0;
+    }
+
+    .contact-detail small {
+      display: block;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: .65rem;
+      margin-bottom: 4px;
+    }
+
+    .contact-detail span {
+      color: #d7d5cf;
+    }
+
+    .contact-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      padding: 32px;
+      border: 1px solid var(--line);
+      background: #101010;
+      border-radius: var(--radius);
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .field.full {
+      grid-column: 1/-1;
+    }
+
+    .field label {
+      font-size: .7rem;
+      color: #aaa8a2;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      background: #090909;
+      color: white;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 13px;
+      outline: none;
+      transition: .2s;
+    }
+
+    .field textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .map-placeholder {
+      margin-top: 30px;
+      height: 250px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background:
+        linear-gradient(rgba(198,166,106,.06),rgba(198,166,106,.06)),
+        repeating-linear-gradient(45deg,#111 0,#111 10px,#151515 10px,#151515 11px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* FOOTER */
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 65px 0 25px;
+      background: #060606;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr repeat(3,1fr);
+      gap: 50px;
+      padding-bottom: 55px;
+    }
+
+    .footer-brand p {
+      color: var(--muted);
+      max-width: 300px;
+      margin-top: 17px;
+      font-size: .8rem;
+    }
+
+    .footer-col h4 {
+      color: var(--accent);
+      font-size: .7rem;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .footer-col a {
+      display: block;
+      color: #aaa8a2;
+      font-size: .78rem;
+      margin: 9px 0;
+      transition: .2s;
+    }
+
+    .footer-col a:hover {
+      color: white;
+    }
+
+    .copyright {
+      border-top: 1px solid var(--line);
+      padding-top: 22px;
+      color: #6d6b66;
+      font-size: .7rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    /* MODAL */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(0,0,0,.75);
+      backdrop-filter: blur(12px);
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-box {
+      width: min(600px,100%);
+      background: #111;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 35px;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      right: 20px;
+      top: 15px;
+      background: none;
+      border: 0;
+      color: #aaa;
+      font-size: 1.7rem;
+    }
+
+    .modal-box h2 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .modal-box > p {
+      color: var(--muted);
+      margin-bottom: 25px;
+    }
+
+    /* BACK TOP */
+
+    .back-top {
+      position: fixed;
+      z-index: 90;
+      right: 20px;
+      bottom: 20px;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: rgba(15,15,15,.85);
+      color: white;
+      opacity: 0;
+      pointer-events: none;
+      transition: .3s;
+    }
+
+    .back-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* REVEAL */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(25px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width: 1000px) {
+      .nav-links {
+        display: none;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .nav-links.mobile-open {
+        display: flex;
+        position: absolute;
+        top: 82px;
+        left: 20px;
+        right: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        background: rgba(15,15,15,.97);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 25px;
+      }
+
+      .nav-cta {
+        display: none;
+      }
+
+      .about-grid,
+      .amenity-layout,
+      .nutrition-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .amenity-intro {
+        position: static;
+      }
+
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .price-card {
+        max-width: 600px;
+        width: 100%;
+        margin-inline: auto;
+      }
+
+      .class-list,
+      .trainer-grid {
+        grid-template-columns: repeat(2,1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media(max-width: 650px) {
+      .container {
+        width: min(calc(100% - 28px), var(--container));
+      }
+
+      .section {
+        padding: 80px 0;
+      }
+
+      .section-header {
+        display: block;
+        margin-bottom: 40px;
+      }
+
+      .section-header p {
+        margin-top: 20px;
+      }
+
+      .hero {
+        min-height: 800px;
+        background-position: 60% center;
+      }
+
+      .hero h1 {
+        font-size: clamp(3.3rem, 18vw, 6rem);
+      }
+
+      .hero-copy {
+        font-size: .95rem;
+      }
+
+      .trust {
+        flex-wrap: wrap;
+      }
+
+      .about-image {
+        min-height: 450px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .amenity-list {
+        grid-template-columns: 1fr;
+      }
+
+      .amenity-item {
+        padding: 11px 0;
+      }
+
+      .split {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .split-image {
+        min-height: 400px;
+      }
+
+      .split-content {
+        padding: 60px 25px;
+      }
+
+      .addons-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .addon {
+        padding: 20px;
+        min-height: 125px;
+      }
+
+      .class-list,
+      .trainer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .trainer-image {
+        height: 430px;
+      }
+
+      .contact-form {
+        grid-template-columns: 1fr;
+        padding: 22px;
+      }
+
+      .field.full {
+        grid-column: auto;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 35px 20px;
+      }
+
+      .footer-brand {
+        grid-column: 1/-1;
+      }
+
+      .copyright {
+        flex-direction: column;
+      }
+
+      .modal-box {
+        padding: 28px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- =========================
+     NAVIGATION
+========================= -->
+
+<header class="nav" id="navbar">
+  <div class="container nav-inner">
+    <a href="#home" class="logo" id="brandLogo">VISTA<span>.</span></a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#memberships">Memberships</a>
+      <a href="#training">Training</a>
+      <a href="#nutrition">Nutrition</a>
+      <a href="#classes">Classes</a>
+      <a href="#trainers">Trainers</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <a href="#contact" class="nav-cta">Book a Tour</a>
+
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+  </div>
+</header>
+
+
+<main>
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero" id="home">
+  <div class="container hero-content reveal">
+    <div class="eyebrow">Premium Fitness • Personal Training • Wellness</div>
+
+    <h1>
+      TRAIN<br>
+      <span>BEYOND</span><br>
+      LIMITS.
+    </h1>
+
+    <p class="hero-copy">
+      An elevated fitness experience designed around your performance,
+      wellness and lifestyle.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#memberships" class="btn btn-primary">Explore Memberships →</a>
+      <button class="btn btn-outline open-modal">Book a Free Tour</button>
+    </div>
+
+    <div class="trust">
+      <span class="trust-dot"></span>
+      Premium Training
+      <span>•</span>
+      Expert Coaching
+      <span>•</span>
+      Modern Wellness
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section class="section" id="about">
+  <div class="container about-grid">
+
+    <div class="about-image reveal"></div>
+
+    <div class="about-copy reveal">
+      <div class="eyebrow">The Vista Standard</div>
+
+      <h2>MORE THAN A GYM.</h2>
+
+      <p>
+        Vista Fitness combines advanced training equipment, expert coaching,
+        personalised programs, nutrition guidance and recovery into one
+        elevated fitness environment.
+      </p>
+
+      <p>
+        Built for people who expect more from their training — whether you're
+        starting from zero, chasing your next performance milestone or simply
+        upgrading your lifestyle.
+      </p>
+
+      <div class="stats">
+        <div class="stat">
+          <strong>5,000+</strong>
+          <span>sq. ft. Premium Training Space</span>
+        </div>
+
+        <div class="stat">
+          <strong>50+</strong>
+          <span>Professional Equipment</span>
+        </div>
+
+        <div class="stat">
+          <strong>10+</strong>
+          <span>Expert Trainers</span>
+        </div>
+
+        <div class="stat">
+          <strong>7 Days</strong>
+          <span>Open Every Week</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =========================
+     AMENITIES
+========================= -->
+
+<section class="section amenities" id="amenities">
+  <div class="container amenity-layout">
+
+    <div class="amenity-intro reveal">
+      <div class="eyebrow">The Facility</div>
+      <h2>BUILT FOR<br>PERFORMANCE.</h2>
+      <p>
+        Every zone has been designed to make training more focused,
+        comfortable and effective.
+      </p>
+    </div>
+
+    <div class="reveal">
+
+      <div class="amenity-group">
+        <h3>Training</h3>
+
+        <div class="amenity-list">
+          <div class="amenity-item">Strength Training Area</div>
+          <div class="amenity-item">Free Weights Zone</div>
+          <div class="amenity-item">Functional Training Zone</div>
+          <div class="amenity-item">Cardio Zone</div>
+          <div class="amenity-item">Treadmills</div>
+          <div class="amenity-item">Cross Trainers</div>
+          <div class="amenity-item">Exercise Bikes</div>
+          <div class="amenity-item">Rowing Machines</div>
+          <div class="amenity-item">Cable Machines</div>
+          <div class="amenity-item">Smith Machine</div>
+          <div class="amenity-item">Squat Racks</div>
+          <div class="amenity-item">Dumbbells</div>
+          <div class="amenity-item">Kettlebells</div>
+          <div class="amenity-item">Resistance Equipment</div>
+          <div class="amenity-item">Functional Training Equipment</div>
+        </div>
+      </div>
+
+      <div class="amenity-group">
+        <h3>Wellness</h3>
+
+        <div class="amenity-list">
+          <div class="amenity-item">Locker Rooms</div>
+          <div class="amenity-item">Premium Showers</div>
+          <div class="amenity-item">Changing Rooms</div>
+          <div class="amenity-item">Drinking Water Station</div>
+          <div class="amenity-item">Recovery Area</div>
+          <div class="amenity-item">Stretching Zone</div>
+          <div class="amenity-item">Relaxation Area</div>
+        </div>
+      </div>
+
+      <div class="amenity-group">
+        <h3>Member Experience</h3>
+
+        <div class="amenity-list">
+          <div class="amenity-item">High-speed Wi-Fi</div>
+          <div class="amenity-item">Music System</div>
+          <div class="amenity-item">Air Conditioning</div>
+          <div class="amenity-item">CCTV Security</div>
+          <div class="amenity-item">Parking</div>
+          <div class="amenity-item">Reception / Member Support</div>
+          <div class="amenity-item">Clean & Sanitised Environment</div>
+          <div class="amenity-item">Personal Storage Lockers</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================
+     MEMBERSHIPS
+========================= -->
+
+<section class="section" id="memberships">
+  <div class="container">
+
+    <div class="section-header reveal">
+      <div>
+        <div class="eyebrow">Membership</div>
+        <h2>CHOOSE YOUR<br>LEVEL.</h2>
+      </div>
+
+      <p>
+        Flexible plans designed for different training goals.
+        Pricing is configurable and can be updated from one place in the code.
+      </p>
+    </div>
+
+    <div class="duration-tabs">
+      <button class="duration-tab active" data-duration="1">1 Month</button>
+      <button class="duration-tab" data-duration="3">3 Months</button>
+      <button class="duration-tab" data-duration="6">6 Months</button>
+      <button class="duration-tab" data-duration="12">12 Months</button>
+    </div>
+
+    <div class="pricing-grid" id="membershipGrid"></div>
+
+  </div>
+</section>
+
+
+<!-- =========================
+     PERSONAL TRAINING
+========================= -->
+
+<section class="split" id="training">
+
+  <div class="split-image"></div>
+
+  <div class="split-content">
+    <div>
+      <div class="eyebrow">Personal Training</div>
+
+      <h2>TRAIN WITH PURPOSE.</h2>
+
+      <p>
+        Work one-on-one with certified trainers who build your training around
+        your goals, ability and progress.
+      </p>
+
+      <div class="mini-grid">
+        <div class="mini-card">
+          <strong>01</strong>
+          One-on-one coaching
+        </div>
+
+        <div class="mini-card">
+          <strong>02</strong>
+          Goal-based programming
+        </div>
+
+        <div class="mini-card">
+          <strong>03</strong>
+          Technique correction
+        </div>
+
+        <div class="mini-card">
+          <strong>04</strong>
+          Progress tracking
+        </div>
+
+        <div class="mini-card">
+          <strong>05</strong>
+          Fitness assessments
+        </div>
+
+        <div class="mini-card">
+          <strong>06</strong>
+          Trainer support
+        </div>
+      </div>
+
+      <div id="ptGrid" class="mini-grid"></div>
+
+      <button class="btn btn-primary open-modal">Meet Our Trainers →</button>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- =========================
+     NUTRITION
+========================= -->
+
+<section class="section nutrition" id="nutrition">
+  <div class="container nutrition-grid">
+
+    <div class="reveal">
+      <div class="eyebrow">Nutrition & Diet</div>
+
+      <h2>FUEL YOUR PERFORMANCE.</h2>
+
+      <p class="nutrition-copy">
+        Training gets you moving. Nutrition gives the work direction.
+        Build a practical approach around your goals, preferences and lifestyle.
+      </p>
+
+      <button class="btn btn-primary open-modal">
+        Get Your Nutrition Plan →
+      </button>
+
+      <p class="disclaimer">
+        Nutrition guidance is intended for general fitness and wellness.
+        Medical nutrition therapy should be provided by a qualified healthcare professional.
+      </p>
+    </div>
+
+    <div class="nutrition-services reveal" id="nutritionGrid"></div>
+
+  </div>
+</section>
+
+
+<!-- =========================
+     ADDONS
+========================= -->
+
+<section class="section" id="addons">
+  <div class="container">
+
+    <div class="section-header reveal">
+      <div>
+        <div class="eyebrow">Enhance Your Membership</div>
+        <h2>OPTIONAL<br>ADD-ONS.</h2>
+      </div>
+
+      <p>
+        Upgrade your experience with focused services that complement your training.
+      </p>
+    </div>
+
+    <div class="addons-grid reveal" id="addonsGrid"></div>
+
+  </div>
+</section>
+
+
+<!-- =========================
+     CLASSES
+========================= -->
+
+<section class="section classes" id="classes">
+  <div class="container">
+
+    <div class="section-header reveal">
+      <div>
+        <div class="eyebrow">Group Training</div>
+        <h2>MOVE<br>TOGETHER.</h2>
+      </div>
+
+      <p>
+        Structured sessions. Expert coaching. A little more energy in the room.
+      </p>
+    </div>
+
+    <div class="class-list" id="classGrid"></div>
+
+  </div>
+</section>
+
+
+<!-- =========================
+     TRAINERS
+========================= -->
+
+<section class="section" id="trainers">
+  <div class="container">
+
+    <div class="section-header reveal">
+      <div>
+        <div class="eyebrow">Our Team</div>
+        <h2>MEET YOUR<br>COACHES.</h2>
+      </div>
+
+      <p>
+        A placeholder team structure ready to be replaced with your actual
+        trainers, certifications and professional profiles.
+      </p>
+    </div>
+
+    <div class="trainer-grid" id="trainerGrid"></div>
+
+  </div>
+</section>
+
+
+<!-- =========================
+     FREE ASSESSMENT CTA
+========================= -->
+
+<section class="cta">
+  <div class="container reveal">
+    <div class="eyebrow">Start Here</div>
+
+    <h2>NOT SURE WHERE TO START?</h2>
+
+    <p>
+      Book a complimentary fitness consultation and discover the right
+      training approach for your goals.
+    </p>
+
+    <button class="btn btn-primary open-modal">
+      Book Your Free Assessment →
+    </button>
+  </div>
+</section>
+
+
+<!-- =========================
+     COMPARISON
+========================= -->
+
+<section class="section" id="comparison">
+  <div class="container">
+
+    <div class="section-header reveal">
+      <div>
+        <div class="eyebrow">Compare Plans</div>
+        <h2>ONE VIEW.<br>EVERYTHING.</h2>
+      </div>
+    </div>
+
+    <div class="comparison-wrap reveal">
+      <table class="comparison">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Essential</th>
+            <th>Performance</th>
+            <th>Elite</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Gym Access</td>
+            <td class="yes">✓</td>
+            <td class="yes">✓</td>
+            <td class="yes">✓</td>
+          </tr>
+
+          <tr>
+            <td>Cardio</td>
+            <td class="yes">✓</td>
+            <td class="yes">✓</td>
+            <td class="yes">✓</td>
+          </tr>
+
+          <tr>
+            <td>Strength Area</td>
+            <td class="yes">✓</td>
+            <td class="yes">✓</td>
+            <td class="yes">✓</td>
+          </tr>
+
+          <tr>
+            <td>Fitness Assessment</td>
+            <td>Basic</td>
+            <td>Monthly</td>
+            <td>Advanced</td>
+          </tr>
+
+          <tr>
+            <td>Workout Plan</td>
+            <td>—</td>
+            <td class="yes">✓</td>
+            <td class="yes">✓</td>
+          </tr>
+
+          <tr>
+            <td>Nutrition Guidance</td>
+            <td>—</td>
+            <td class="yes">✓</td>
+            <td class="yes">✓</td>
+          </tr>
+
+          <tr>
+            <td>Group Classes</td>
+            <td>—</td>
+            <td class="yes">✓</td>
+            <td class="yes">✓</td>
+          </tr>
+
+          <tr>
+            <td>Personal Training</td>
+            <td>—</td>
+            <td>—</td>
+            <td class="yes">✓</td>
+          </tr>
+
+          <tr>
+            <td>Progress Tracking</td>
+            <td>—</td>
+            <td>Monthly</td>
+            <td class="yes">✓</td>
+          </tr>
+
+          <tr>
+            <td>Priority Booking</td>
+            <td>—</td>
+            <td>—</td>
+            <td class="yes">✓</td>
+          </tr>
+
+          <tr>
+            <td>Recovery Guidance</td>
+            <td>—</td>
+            <td>—</td>
+            <td class="yes">✓</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =========================
+     FAQ
+========================= -->
+
+<section class="section faq" id="faq">
+  <div class="container">
+
+    <div class="section-header reveal">
+      <div>
+        <div class="eyebrow">FAQ</div>
+        <h2>QUESTIONS,<br>ANSWERED.</h2>
+      </div>
+    </div>
+
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-question">
+          What are your membership prices?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Current example pricing is shown above. The gym owner can update
+            pricing from the central configuration section.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Do you offer trial sessions?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Yes. Trial and complimentary assessment availability can be configured
+            based on your membership policy.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Is personal training available?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Yes. Personal training packages are available as individual sessions
+            or multi-session packages.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Do you provide diet plans?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Nutrition consultation and personalised fitness-oriented diet planning
+            are available.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          What equipment do you have?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            The facility can include strength, cardio, functional training,
+            free weights and resistance equipment as listed in the amenities section.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Is there parking?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Parking availability can be updated according to the actual facility.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          What are your opening hours?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Monday–Saturday: 5:30 AM – 10:00 PM. Sunday: 7:00 AM – 2:00 PM.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Can beginners join?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Absolutely. Training can be adapted for beginners, intermediate
+            members and experienced athletes.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Do you offer student memberships?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Student plans can be added to the membership configuration if offered
+            by the gym.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Can I freeze my membership?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Membership freeze rules should follow the gym's membership policy.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Are group classes included?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Group-class access depends on the selected membership plan.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Do you offer female-only training sessions?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Female-only sessions can be added based on the gym's schedule,
+            trainer availability and operating policy.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================
+     CONTACT
+========================= -->
+
+<section class="section" id="contact">
+  <div class="container contact-grid">
+
+    <div class="contact-info reveal">
+      <div class="eyebrow">Contact Vista</div>
+      <h2>LET'S GET<br>STARTED.</h2>
+
+      <p>
+        Tell us what you're working toward and we'll help you find the right
+        place to start.
+      </p>
+
+      <div class="contact-detail">
+        <small>Address</small>
+        <span id="addressText">[ADD GYM ADDRESS]</span>
+      </div>
+
+      <div class="contact-detail">
+        <small>Phone</small>
+        <span id="phoneText">+91 XXXXX XXXXX</span>
+      </div>
+
+      <div class="contact-detail">
+        <small>Email</small>
+        <span id="emailText">hello@vistafitness.in</span>
+      </div>
+
+      <div class="contact-detail">
+        <small>Opening Hours</small>
+        <span>Mon–Sat: 5:30 AM – 10:00 PM<br>Sun: 7:00 AM – 2:00 PM</span>
+      </div>
+
+      <div class="map-placeholder">
+        Google Maps<br>Location Placeholder
+      </div>
+    </div>
+
+
+    <form class="contact-form reveal" id="contactForm">
+
+      <div class="field">
+        <label>Name</label>
+        <input type="text" required placeholder="Your name">
+      </div>
+
+      <div class="field">
+        <label>Phone</label>
+        <input type="tel" required placeholder="+91">
+      </div>
+
+      <div class="field">
+        <label>Email</label>
+        <input type="email" placeholder="you@email.com">
+      </div>
+
+      <div class="field">
+        <label>Goal</label>
+        <select>
+          <option>General Fitness</option>
+          <option>Fat Loss</option>
+          <option>Muscle Gain</option>
+          <option>Strength</option>
+          <option>Athletic Performance</option>
+          <option>Wellness</option>
+        </select>
+      </div>
+
+      <div class="field full">
+        <label>Preferred Membership</label>
+        <select>
+          <option>Essential</option>
+          <option>Performance</option>
+          <option>Elite</option>
+          <option>Not sure yet</option>
+        </select>
+      </div>
+
+      <div class="field full">
+        <label>Message</label>
+        <textarea placeholder="Tell us a little about what you're looking for..."></textarea>
+      </div>
+
+      <div class="field full">
+        <button class="btn btn-primary" type="submit">
+          Send Enquiry →
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</section>
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+  <div class="container">
+
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <div class="logo">VISTA<span>.</span></div>
+
+        <p>
+          Premium fitness. Personal coaching. Modern wellness.
+          Train beyond limits.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#memberships">Memberships</a>
+        <a href="#training">Personal Training</a>
+        <a href="#nutrition">Nutrition</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="#classes">Classes</a>
+        <a href="#trainers">Trainers</a>
+        <a href="#amenities">Facilities</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="#" target="_blank">Instagram</a>
+        <a href="#" target="_blank">Facebook</a>
+        <a href="#" target="_blank">YouTube</a>
+        <a href="#" target="_blank">WhatsApp</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms & Conditions</a>
+      </div>
+
+    </div>
+
+    <div class="copyright">
+      <span>© 2026 Vista Fitness. All rights reserved.</span>
+      <span>Premium Fitness • Performance • Wellness</span>
+    </div>
+
+  </div>
+</footer>
+
+
+<!-- =========================
+     BOOKING MODAL
+========================= -->
+
+<div class="modal" id="bookingModal">
+
+  <div class="modal-box">
+
+    <button class="modal-close" id="modalClose">×</button>
+
+    <div class="eyebrow">Start Your Journey</div>
+
+    <h2>BOOK YOUR<br>VISIT.</h2>
+
+    <p>
+      Leave your details and the Vista team can get in touch with you.
+    </p>
+
+    <form id="bookingForm">
+
+      <div class="field">
+        <label>Name</label>
+        <input type="text" required placeholder="Your name">
+      </div>
+
+      <br>
+
+      <div class="field">
+        <label>Phone</label>
+        <input type="tel" required placeholder="+91 XXXXX XXXXX">
+      </div>
+
+      <br>
+
+      <div class="field">
+        <label>What are you interested in?</label>
+        <select>
+          <option>Free Tour</option>
+          <option>Membership</option>
+          <option>Personal Training</option>
+          <option>Nutrition</option>
+          <option>Free Assessment</option>
+        </select>
+      </div>
+
+      <br>
+
+      <button class="btn btn-primary" style="width:100%" type="submit">
+        Request Booking →
+      </button>
+
+    </form>
+
+  </div>
+</div>
+
+
+<button class="back-top" id="backTop" aria-label="Back to top">↑</button>
+
+
+<script>
+
+/* =========================================================
+   VISTA FITNESS — CENTRAL BUSINESS CONFIGURATION
+   CHANGE BUSINESS DETAILS / PRICES HERE
+========================================================= */
+
+const VISTA_CONFIG = {
+
+  brand: {
+    name: "VISTA FITNESS",
+    email: "hello@vistafitness.in",
+    phone: "+91 XXXXX XXXXX",
+    address: "[ADD GYM ADDRESS]"
+  },
+
+  memberships: {
+
+    Essential: {
+      prices: {
+        1: 1499,
+        3: 3999,
+        6: 6999,
+        12: 11999
+      },
+      features: [
+        "Full Gym Access",
+        "Cardio & Strength Areas",
+        "Locker Access",
+        "Changing Rooms",
+        "Basic Fitness Assessment"
+      ]
+    },
+
+    Performance: {
+      prices: {
+        1: 2499,
+        3: 6499,
+        6: 11999,
+        12: 19999
+      },
+      features: [
+        "Everything in Essential",
+        "Personalised Workout Plan",
+        "Monthly Fitness Assessment",
+        "Nutrition Guidance",
+        "Group Training Sessions",
+        "Priority Support"
+      ]
+    },
+
+    Elite: {
+      prices: {
+        1: 3999,
+        3: 10499,
+        6: 18999,
+        12: 32999
+      },
+      features: [
+        "Everything in Performance",
+        "Personal Training Sessions",
+        "Advanced Fitness Assessment",
+        "Personalised Nutrition Plan",
+        "Recovery Guidance",
+        "Priority Booking",
+        "Premium Member Benefits"
+      ]
+    }
+
+  },
+
+  personalTraining: [
+    ["PT — SINGLE SESSION", 799, "/ session"],
+    ["PT — 8 SESSIONS", 5499, ""],
+    ["PT — 12 SESSIONS", 7499, ""],
+    ["PT — 20 SESSIONS", 11999, ""]
+  ],
+
+  nutrition: [
+    ["Nutrition Consultation", 499],
+    ["Personalised Diet Plan", 999],
+    ["Monthly Nutrition Coaching", 1999]
+  ],
+
+  addons: [
+    ["Fitness Assessment", 399],
+    ["Body Composition Analysis", 499],
+    ["Personal Training", 799, "from"],
+    ["Nutrition Consultation", 499],
+    ["Personalised Diet Plan", 999],
+    ["Group Training", 299, "/session"],
+    ["Recovery Session", 499],
+    ["Guest Pass", 299, "/day"],
+    ["Premium Locker", 299, "/month"]
+  ],
+
+  trainers: [
+    {
+      name: "Arjun Mehta",
+      role: "Performance Coach",
+      experience: "8+ Years Experience",
+      specialty: "Strength • Conditioning • Fat Loss",
+      bio: "Goal-driven coaching focused on strength, movement quality and sustainable progress.",
+      image: "https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=900&q=85"
+    },
+
+    {
+      name: "Riya Kapoor",
+      role: "Strength & Wellness Coach",
+      experience: "6+ Years Experience",
+      specialty: "Strength • Mobility • Wellness",
+      bio: "Combines progressive strength training with mobility and lifestyle-focused coaching.",
+      image: "https://images.unsplash.com/photo-1549476464-37392f717541?auto=format&fit=crop&w=900&q=85"
+    },
+
+    {
+      name: "Kabir Singh",
+      role: "Athletic Performance Coach",
+      experience: "7+ Years Experience",
+      specialty: "Athletic Performance • Conditioning",
+      bio: "Performance-focused programming for members who want to move faster, stronger and better.",
+      image: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=900&q=85"
+    },
+
+    {
+      name: "Maya Sharma",
+      role: "Fitness Coach",
+      experience: "5+ Years Experience",
+      specialty: "Fat Loss • Functional Training",
+      bio: "Practical coaching designed to make fitness approachable, consistent and sustainable.",
+      image: "https://images.unsplash.com/photo-1594381898411-846e7d193883?auto=format&fit=crop&w=900&q=85"
+    }
+  ],
+
+  classes: [
+    ["HIIT", "High-intensity conditioning designed to challenge your cardiovascular capacity.", "45 min", "Advanced"],
+    ["Strength & Conditioning", "Build strength, power and work capacity with structured programming.", "60 min", "Intermediate"],
+    ["Functional Training", "Athletic movement patterns for strength that transfers beyond the gym.", "45 min", "All Levels"],
+    ["Mobility", "Improve movement quality, flexibility and recovery.", "45 min", "All Levels"],
+    ["Core Training", "Focused trunk strength and stability sessions.", "30 min", "All Levels"],
+    ["Yoga", "Mobility, balance and mindful movement.", "60 min", "All Levels"],
+    ["Fat-Loss Training", "Structured training focused on conditioning and sustainable progress.", "45 min", "Intermediate"],
+    ["Athletic Conditioning", "Speed, agility, power and performance-focused conditioning.", "60 min", "Advanced"]
+  ]
+
+};
+
+
+/* =========================================================
+   MEMBERSHIP RENDER
+========================================================= */
+
+let selectedDuration = 1;
+
+function renderMemberships() {
+
+  const grid = document.getElementById("membershipGrid");
+
+  grid.innerHTML = Object.entries(VISTA_CONFIG.memberships)
+    .map(([name, plan]) => {
+
+      const featured = name === "Performance";
+
+      return `
+        <article class="price-card ${featured ? "featured" : ""} reveal">
+
+          ${featured ? `<div class="popular">MOST POPULAR</div>` : ""}
+
+          <h3>${name.toUpperCase()}</h3>
+
+          <div class="price">
+            ₹${plan.prices[selectedDuration].toLocaleString("en-IN")}
+            <small>/ month*</small>
+          </div>
+
+          <div class="duration">
+            ${selectedDuration} month${selectedDuration > 1 ? "s" : ""}
+          </div>
+
+          <ul class="features">
+            ${plan.features.map(item => `<li>${item}</li>`).join("")}
+          </ul>
+
+          <button class="btn ${featured ? "btn-primary" : "btn-outline"} open-modal">
+            Choose ${name}
+          </button>
+
+        </article>
+      `;
+    })
+    .join("");
+
+  bindModalButtons();
+}
+
+
+/* =========================================================
+   PERSONAL TRAINING
+========================================================= */
+
+document.getElementById("ptGrid").innerHTML =
+  VISTA_CONFIG.personalTraining.map(item => `
+    <div class="mini-card">
+      <strong>₹${item[1].toLocaleString("en-IN")}</strong>
+      ${item[0]} ${item[2] || ""}
+    </div>
+  `).join("");
+
+
+/* =========================================================
+   NUTRITION
+========================================================= */
+
+document.getElementById("nutritionGrid").innerHTML =
+  VISTA_CONFIG.nutrition.map(item => `
+    <div class="nutrition-service">
+      <strong>${item[0]}</strong>
+      <span>₹${item[1].toLocaleString("en-IN")}</span>
+    </div>
+  `).join("");
+
+
+/* =========================================================
+   ADDONS
+========================================================= */
+
+document.getElementById("addonsGrid").innerHTML =
+  VISTA_CONFIG.addons.map(item => `
+    <div class="addon">
+      <h3>${item[0]}</h3>
+      <strong>
+        ₹${item[1].toLocaleString("en-IN")}
+        ${item[2] || ""}
+      </strong>
+    </div>
+  `).join("");
+
+
+/* =========================================================
+   CLASSES
+========================================================= */
+
+document.getElementById("classGrid").innerHTML =
+  VISTA_CONFIG.classes.map(item => `
+    <article class="class-card">
+      <div class="class-meta">
+        <span class="tag">${item[2]}</span>
+        <span class="tag">${item[3]}</span>
+      </div>
+
+      <h3>${item[0]}</h3>
+
+      <p>${item[1]}</p>
+
+      <button class="btn btn-outline open-modal">
+        Book Class
+      </button>
+    </article>
+  `).join("");
+
+
+/* =========================================================
+   TRAINERS
+========================================================= */
+
+document.getElementById("trainerGrid").innerHTML =
+  VISTA_CONFIG.trainers.map(trainer => `
+    <article class="trainer-card reveal">
+
+      <img
+        class="trainer-image"
+        src="${trainer.image}"
+        alt="${trainer.name}, ${trainer.role}"
+        loading="lazy"
+      >
+
+      <div class="trainer-info">
+        <h3>${trainer.name}</h3>
+
+        <div class="trainer-role">
+          ${trainer.role}
+        </div>
+
+        <p>
+          <strong>${trainer.experience}</strong><br>
+          ${trainer.specialty}<br><br>
+          ${trainer.bio}
+        </p>
+      </div>
+
+    </article>
+  `).join("");
+
+
+/* =========================================================
+   CONTACT DETAILS
+========================================================= */
+
+document.getElementById("addressText").textContent =
+  VISTA_CONFIG.brand.address;
+
+document.getElementById("phoneText").textContent =
+  VISTA_CONFIG.brand.phone;
+
+document.getElementById("emailText").textContent =
+  VISTA_CONFIG.brand.email;
+
+
+/* =========================================================
+   DURATION SWITCHER
+========================================================= */
+
+document.querySelectorAll(".duration-tab").forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    document.querySelectorAll(".duration-tab")
+      .forEach(btn => btn.classList.remove("active"));
+
+    button.classList.add("active");
+
+    selectedDuration = Number(button.dataset.duration);
+
+    renderMemberships();
+
+  });
+
+});
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+const navbar = document.getElementById("navbar");
+const backTop = document.getElementById("backTop");
+
+window.addEventListener("scroll", () => {
+
+  navbar.classList.toggle("scrolled", window.scrollY > 40);
+
+  backTop.classList.toggle("visible", window.scrollY > 600);
+
+});
+
+
+/* MOBILE MENU */
+
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+menuBtn.addEventListener("click", () => {
+  navLinks.classList.toggle("mobile-open");
+});
+
+navLinks.querySelectorAll("a").forEach(link => {
+
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("mobile-open");
+  });
+
+});
+
+
+/* =========================================================
+   ACTIVE NAV
+========================================================= */
+
+const sections = document.querySelectorAll("main section[id]");
+const navAnchors = document.querySelectorAll(".nav-links a");
+
+const navObserver = new IntersectionObserver(
+  entries => {
+
+    entries.forEach(entry => {
+
+      if (entry.isIntersecting) {
+
+        navAnchors.forEach(a => a.classList.remove("active"));
+
+        const active = document.querySelector(
+          `.nav-links a[href="#${entry.target.id}"]`
+        );
+
+        if (active) active.classList.add("active");
+
+      }
+
+    });
+
+  },
+  {
+    threshold: .25
+  }
+);
+
+sections.forEach(section => navObserver.observe(section));
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+const revealObserver = new IntersectionObserver(
+  entries => {
+
+    entries.forEach(entry => {
+
+      if (entry.isIntersecting) {
+
+        entry.target.classList.add("visible");
+
+        revealObserver.unobserve(entry.target);
+
+      }
+
+    });
+
+  },
+  {
+    threshold: .12
+  }
+);
+
+document.querySelectorAll(".reveal").forEach(element => {
+  revealObserver.observe(element);
+});
+
+
+/* =========================================================
+   FAQ
+========================================================= */
+
+document.querySelectorAll(".faq-question").forEach(question => {
+
+  question.addEventListener("click", () => {
+
+    const item = question.parentElement;
+    const answer = item.querySelector(".faq-answer");
+
+    document.querySelectorAll(".faq-item").forEach(other => {
+
+      if (other !== item) {
+        other.classList.remove("open");
+        other.querySelector(".faq-answer").style.maxHeight = null;
+      }
+
+    });
+
+    item.classList.toggle("open");
+
+    if (item.classList.contains("open")) {
+      answer.style.maxHeight = answer.scrollHeight + "px";
+    } else {
+      answer.style.maxHeight = null;
+    }
+
+  });
+
+});
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+const modal = document.getElementById("bookingModal");
+const modalClose = document.getElementById("modalClose");
+
+function openModal() {
+  modal.classList.add("open");
+  document.body.classList.add("modal-open");
+}
+
+function closeModal() {
+  modal.classList.remove("open");
+  document.body.classList.remove("modal-open");
+}
+
+function bindModalButtons() {
+
+  document.querySelectorAll(".open-modal").forEach(button => {
+
+    button.addEventListener("click", openModal);
+
+  });
+
+}
+
+bindModalButtons();
+
+modalClose.addEventListener("click", closeModal);
+
+modal.addEventListener("click", event => {
+
+  if (event.target === modal) {
+    closeModal();
+  }
+
+});
+
+document.addEventListener("keydown", event => {
+
+  if (event.key === "Escape") {
+    closeModal();
+  }
+
+});
+
+
+/* =========================================================
+   FORMS
+========================================================= */
+
+document.getElementById("contactForm").addEventListener("submit", event => {
+
+  event.preventDefault();
+
+  alert(
+    "Thanks! Your enquiry has been received. Connect this form to your CRM, email service or WhatsApp backend for production use."
+  );
+
+  event.target.reset();
+
+});
+
+
+document.getElementById("bookingForm").addEventListener("submit", event => {
+
+  event.preventDefault();
+
+  alert(
+    "Your booking request has been captured. Connect this form to your preferred booking system for production use."
+  );
+
+  event.target.reset();
+
+  closeModal();
+
+});
+
+
+/* =========================================================
+   BACK TO TOP
+========================================================= */
+
+backTop.addEventListener("click", () => {
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+});
+
+
+/* =========================================================
+   INITIAL RENDER
+========================================================= */
+
+renderMemberships();
+
+</script>
+
+</body>
+</html>
